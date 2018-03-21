@@ -26,13 +26,15 @@
 
 
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+
 
         <activity
             android:name=".LocationDisplay"
             android:label="@string/title_activity_location_display"></activity>
     </application>
+  <uses-sdk
+           android:maxSdkVersion="26"
+      android:minSdkVersion="16"
+      />
 
 </manifest>

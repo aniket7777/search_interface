@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button SearchCode;
     private TextView OutputAddress;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +46,7 @@ private void onSearch() throws JSONException{
             ObjBackgroundWorker.textview(OutputAddress);
             ObjBackgroundWorker.execute(type ,code.toString());
 
-
-
-
-}
+    }
 
 protected void Click(View v)
 {

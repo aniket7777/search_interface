@@ -1,7 +1,10 @@
 package com.example.aniketshrivastava.searchinterface;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+
 /**
  * Created by ANIKET SHRIVASTAVA on 13-03-2018.
  */
@@ -28,7 +32,13 @@ import java.net.URL;
 public class SearchBackground extends AsyncTask<String ,Void, String> {
     protected Context context;
     private TextView tv;
-    private String code = "";
+
+    private String code;
+
+    {
+        code = null;
+    }
+
     void textview(TextView t){
         this.tv=t;
     }
@@ -67,14 +77,7 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
                 inputStreamData = inputStreamReader.read();
                 data += current;
 
-//                JSONArray myListsAll= new JSONArray(myjsonstring);
-//                for(int i=0;i<myListsAll.length();i++){
-//                    JSONObject jsonobject= (JSONObject) myListsAll.get(i);
-//                    String id=jsonobject("nid");
-//
-                JSONArray jsonarray = new JSONArray(data);
-                JSONObject jsonobject = (JSONObject) jsonarray.get(0);
-                id = jsonobject.optString("pin");
+
 
 
                 dataOutputStream.close();
@@ -84,22 +87,49 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        return id;
+        return data;
     }
 
     @Override
     protected void onPreExecute() {
+
         super.onPreExecute();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onPostExecute(String s) {
-          tv.setText(s);
 
+        try { String s1="Name : ";
+              String s2="Address : ";
+              String s3="Geo Coordinates : ";
+              SpannableString ss1=  new SpannableString(s1);
+              SpannableString ss2=  new SpannableString(s2);
+              SpannableString ss3=  new SpannableString(s3);
+
+            ss1.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
+            ss2.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
+            ss3.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
+
+            JSONObject obj = new  JSONObject(s);
+
+            String add = obj.getString("address");
+            float latiii = Float.parseFloat(obj.getString("latitude"));
+            float longiii = Float.parseFloat(obj.getString("longitude"));
+            String user=(obj.getString("name"));
+
+            LocationDisplay obj1=new LocationDisplay();
+            obj1.Coordinate(latiii,longiii);
+
+            tv.setText(ss1+add + "\n" + ss3 + "%.3f" + latiii + "%.3f" + longiii + "\n" + ss2 + user);
+        }
+          catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
+
+
 }
 
