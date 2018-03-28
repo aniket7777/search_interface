@@ -48,7 +48,7 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        String data = null;
+        String data = "";
         String id = null;
         try {
             String Search_URL = "https://eureka18.000webhostapp.com/search.php";
@@ -78,13 +78,13 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
                 data += current;
 
 
-
+            }
 
                 dataOutputStream.close();
                 inputStream.close();
 
 
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,23 +112,23 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
             ss2.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
             ss3.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
 
-            String crappyPrefix = "null";
 
-            if(s.startsWith(crappyPrefix)){
-                s = s.substring(crappyPrefix.length(), s.length());
+            JSONArray obj = new JSONArray(s);
+
+            for (int i=0;i<obj.length();i++) {
+
+                JSONObject jobj = obj.getJSONObject(i);
+                String add = jobj.getString("address");
+                float latiii = Float.parseFloat(jobj.getString("latitude"));
+                float longiii = Float.parseFloat(jobj.getString("longitude"));
+                String user = (jobj.getString("name"));
+
+
+                LocationDisplay obj1 = new LocationDisplay();
+                obj1.Coordinate(latiii, longiii);
+
+                tv.setText(ss2 + add + "\n" + ss3 + "%.3f" + latiii + "%.3f" + longiii + "\n" + ss1 + user);
             }
-            JSONObject obj = new  JSONObject(s);
-
-
-            String add = obj.getString("address");
-            float latiii = Float.parseFloat(obj.getString("latitude"));
-            float longiii = Float.parseFloat(obj.getString("longitude"));
-            String user=(obj.getString("name"));
-
-            LocationDisplay obj1=new LocationDisplay();
-            obj1.Coordinate(latiii,longiii);
-
-            tv.setText(ss1 + add + "\n" + ss3 + "%.3f" + latiii + "%.3f" + longiii + "\n" + ss2 + user);
         }
           catch (JSONException e) {
             e.printStackTrace();
