@@ -112,7 +112,13 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
             ss2.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
             ss3.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
 
+            String crappyPrefix = "null";
+
+            if(s.startsWith(crappyPrefix)){
+                s = s.substring(crappyPrefix.length(), s.length());
+            }
             JSONObject obj = new  JSONObject(s);
+
 
             String add = obj.getString("address");
             float latiii = Float.parseFloat(obj.getString("latitude"));
@@ -122,7 +128,7 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
             LocationDisplay obj1=new LocationDisplay();
             obj1.Coordinate(latiii,longiii);
 
-            tv.setText(ss1+add + "\n" + ss3 + "%.3f" + latiii + "%.3f" + longiii + "\n" + ss2 + user);
+            tv.setText(ss1 + add + "\n" + ss3 + "%.3f" + latiii + "%.3f" + longiii + "\n" + ss2 + user);
         }
           catch (JSONException e) {
             e.printStackTrace();
