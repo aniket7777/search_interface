@@ -14,13 +14,14 @@ public class LocationDisplay extends FragmentActivity implements OnMapReadyCallb
 
     private GoogleMap mMap;
 
-    float latitude , longitude;
+     float latitude , longitude;
 
 
     void Coordinate (float lati, float lon){
-        latitude = lati;
-        longitude = lon;
+        latitude = (float) lati;
+        longitude =(float) lon;
 
+        System.out.println(lati +" "+lon+"after cinversion "+latitude+" "+longitude);
     }
 
     @Override
@@ -48,8 +49,8 @@ public class LocationDisplay extends FragmentActivity implements OnMapReadyCallb
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng house = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(house).title("Marker in House Location"));
+        LatLng house = new LatLng(longitude,latitude);
+        mMap.addMarker(new MarkerOptions().position(house).title("Marker"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(house));
     }
 }
