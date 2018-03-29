@@ -42,18 +42,19 @@ private void onSearch() throws JSONException{
             String Code=InputCode.getText().toString().trim();
             code.put("pin",Code);
             String type="Code";
+            OutputAddress.setVisibility(View.VISIBLE);
             SearchBackground ObjBackgroundWorker = new SearchBackground(getApplicationContext());
             ObjBackgroundWorker.textview(OutputAddress);
             ObjBackgroundWorker.execute(type ,code.toString());
 
     }
 
-protected void Click(View v)
+public void Click(View view )
 {
 
 
-    startActivity(new Intent(getApplicationContext(), com.example.aniketshrivastava.searchinterface.LocationDisplay.class));
-
+    Intent i = new Intent(MainActivity.this, LocationDisplay.class);
+    startActivity(i);
 
 }
 

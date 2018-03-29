@@ -101,7 +101,9 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
     @Override
     protected void onPostExecute(String s) {
 
-        try { String s1="Name : ";
+        try {
+
+            String s1="Name : ";
               String s2="Address : ";
               String s3="Geo Coordinates : ";
               SpannableString ss1=  new SpannableString(s1);
@@ -113,22 +115,20 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
             ss3.setSpan(new RelativeSizeSpan(2f), 0,5, 0); // set size
 
 
-            JSONArray obj = new JSONArray(s);
+                 JSONArray obj = new JSONArray(s);
+                 JSONObject jobj = (JSONObject)obj.get(0);
 
-            for (int i=0;i<obj.length();i++) {
-
-                JSONObject jobj = obj.getJSONObject(i);
-                String add = jobj.getString("address");
-                float latiii = Float.parseFloat(jobj.getString("latitude"));
-                float longiii = Float.parseFloat(jobj.getString("longitude"));
-                String user = (jobj.getString("name"));
+               String add = jobj.getString("address");
+                float  latiii = Float.parseFloat(jobj.getString("latitude"));
+                float  longiii = Float.parseFloat(jobj.getString("longitude"));
+                String  user = (jobj.getString("name"));
 
 
                 LocationDisplay obj1 = new LocationDisplay();
                 obj1.Coordinate(latiii, longiii);
 
-                tv.setText(ss2 + add + "\n" + ss3 + "%.3f" + latiii + "%.3f" + longiii + "\n" + ss1 + user);
-            }
+                tv.setText(ss2 + add + "\n" + ss3  + latiii +  " " + longiii + "\n" + ss1 + user);
+
         }
           catch (JSONException e) {
             e.printStackTrace();
