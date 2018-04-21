@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
-    private EditText InputCode;
+    private EditText InputCode1,InputCode2,InputCode3;
     private Button SearchCode;
     private TextView OutputAddress;
 
@@ -22,7 +22,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        InputCode = findViewById(R.id.CodeInput);
+        InputCode1 = findViewById(R.id.CodeInput1);
+        InputCode2 = findViewById(R.id.CodeInput2);
+        InputCode3 = findViewById(R.id.CodeInput3);
+
         SearchCode=findViewById(R.id.SearchButton);
         OutputAddress=findViewById(R.id.GetLocation);
         SearchCode.setOnClickListener(new View.OnClickListener() {
@@ -39,9 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
 private void onSearch() throws JSONException{
             JSONObject code=new JSONObject();
-            String Code=InputCode.getText().toString().trim();
+            String Code=InputCode1.getText().toString().trim() + "-" + InputCode2.getText().toString().trim() + "-" +InputCode3.getText().toString().trim();
             code.put("pin",Code);
             String type="Code";
+            System.out.println(Code);
             OutputAddress.setVisibility(View.VISIBLE);
             SearchBackground ObjBackgroundWorker = new SearchBackground(getApplicationContext());
             ObjBackgroundWorker.textview(OutputAddress);

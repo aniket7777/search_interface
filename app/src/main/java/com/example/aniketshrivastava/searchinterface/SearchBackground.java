@@ -119,8 +119,8 @@ public class SearchBackground extends AsyncTask<String ,Void, String> {
                  JSONObject jobj = (JSONObject)obj.get(0);
 
                String add = jobj.getString("address");
-                float  latiii = Float.parseFloat(jobj.getString("latitude"));
-                float  longiii = Float.parseFloat(jobj.getString("longitude"));
+                Double  latiii = Double.parseDouble(jobj.getString("latitude"));
+                Double  longiii = Double.parseDouble(jobj.getString("longitude"));
                 String  user = (jobj.getString("name"));
 
 

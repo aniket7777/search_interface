@@ -12,45 +12,44 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LocationDisplay extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-
-     float latitude , longitude;
+    public static double latitude , longitude;
 
 
-    void Coordinate (float lati, float lon){
-        latitude = (float) lati;
-        longitude =(float) lon;
 
+    void Coordinate (Double lati ,Double lon){
+        latitude =  lati;
+        longitude = lon;
         System.out.println(lati +" "+lon+"after cinversion "+latitude+" "+longitude);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_display);
+        System.out.println("0 after conversion +"+latitude+" "+longitude);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        System.out.println("1 after conversion +"+latitude+" "+longitude);
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+
 
         // Add a marker in Sydney and move the camera
-        LatLng house = new LatLng(longitude,latitude);
-        mMap.addMarker(new MarkerOptions().position(house).title("Marker"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(house));
+        LatLng latLng = new LatLng(latitude,longitude);
+        System.out.println("3 after conversion +"+latitude+" "+longitude);
+
+        googleMap.addMarker(new MarkerOptions().position(latLng));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 17.0f ) );
+
+
     }
 }
